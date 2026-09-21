@@ -1,22 +1,38 @@
+# Utilise la version 2 de l'interface de configuration de Vagrant pour définir la VM.
 Vagrant.configure("2") do |config|
+  # Prend une image Debian 13 pour VirtualBox comme point de départ de la VM.
   config.vm.box = "cloud-image/debian-13-vbox-amd64"
+  # Définit le nom d'hôte visible depuis le système Debian invité.
   config.vm.hostname = "badass"
 
+  # Partage le dossier parent (la racine du projet) avec la VM dans /vagrant.
   config.vm.synced_folder "..", "/vagrant"
 
+  # Redirige le port RDP 3389 de la VM vers le même port sur l'ordinateur hôte.
   config.vm.network "forwarded_port", guest: 3389, host: 3389
 
+  # Applique les réglages suivants uniquement au fournisseur VirtualBox.
   config.vm.provider "virtualbox" do |vb|
+    # Donne ce nom à la machine dans l'interface de VirtualBox.
     vb.name = "badass-host"
+    # Affiche la fenêtre de la VM au démarrage au lieu de la lancer sans interface.
     vb.gui = true
 
+    # Attribue 8 192 Mio de mémoire vive à la VM.
     vb.memory = 8192
+    # Attribue quatre processeurs virtuels à la VM.
     vb.cpus = 4
 
+    # Active la virtualisation matérielle imbriquée pour les logiciels lancés dans la VM.
     vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+    # Active l'IO APIC, nécessaire notamment à la gestion de plusieurs processeurs virtuels.
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    # Réserve 128 Mio de mémoire vidéo virtuelle pour l'affichage de la VM.
     vb.customize ["modifyvm", :id, "--vram", "128"]
+  # Termine le bloc des réglages propres à VirtualBox.
   end
 
+  # Exécute setup.sh dans la VM pour installer et préparer les outils du projet.
   config.vm.provision "shell", path: "setup.sh"
+# Termine la configuration de cette VM Vagrant.
 end
