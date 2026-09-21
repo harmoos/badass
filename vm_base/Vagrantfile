@@ -3,11 +3,11 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "badass"
 
   # 🇫🇷 Partage le dossier parent (la racine du projet) avec la VM dans /vagrant.
-  # 🇵🇹 Partilha a pasta superior (a raiz do projeto) com a VM em /vagrant.
+  # 🇧🇷 Partilha a pasta superior (a raiz do projeto) com a VM em /vagrant.
   config.vm.synced_folder "..", "/vagrant"
 
   # 🇫🇷 Redirige le port RDP 3389 de la VM vers le même port sur l'ordinateur hôte.
-  # 🇵🇹 Redireciona a porta RDP 3389 da VM para a mesma porta no computador anfitrião.
+  # 🇧🇷 Redireciona a porta RDP 3389 da VM para a mesma porta no computador anfitrião.
   config.vm.network "forwarded_port", guest: 3389, host: 3389
 
   config.vm.provider "virtualbox" do |vb|
@@ -18,15 +18,15 @@ Vagrant.configure("2") do |config|
     vb.cpus = 4
 
     # 🇫🇷 Active la virtualisation matérielle imbriquée pour les logiciels lancés dans la VM.
-    # 🇵🇹 Ativa a virtualização de hardware aninhada para os programas executados na VM.
+    # 🇧🇷 Ativa a virtualização de hardware aninhada para os programas executados na VM.
     vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
     # 🇫🇷 Active l'IO APIC, nécessaire notamment à la gestion de plusieurs processeurs virtuels.
-    # 🇵🇹 Ativa o IO APIC, necessário, nomeadamente, para gerir vários processadores virtuais.
+    # 🇧🇷 Ativa o IO APIC, necessário, nomeadamente, para gerir vários processadores virtuais.
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
     vb.customize ["modifyvm", :id, "--vram", "128"]
   end
 
   # 🇫🇷 Exécute setup.sh dans la VM pour installer et préparer les outils du projet.
-  # 🇵🇹 Executa setup.sh na VM para instalar e preparar as ferramentas do projeto.
+  # 🇧🇷 Executa setup.sh na VM para instalar e preparar as ferramentas do projeto.
   config.vm.provision "shell", path: "setup.sh"
 end
