@@ -11,7 +11,7 @@ echo "grub-pc grub-pc/install_devices multiselect /dev/sda" | debconf-set-select
 echo "grub-pc grub-pc/install_devices_empty boolean true" | debconf-set-selections
 # 🇫🇷 Bloque les mises à jour des paquets GRUB pour éviter leur reconfiguration pendant l'upgrade.
 # 🇵🇹 Bloque as atualizações dos pacotes GRUB para evitar a sua reconfiguração durante a atualização.
-apt-mark hold grub-pc grub-common grub2-common
+apt-mark hold grub-common grub2-common
 
 dpkg --configure -a
 apt-get update -y
@@ -80,8 +80,17 @@ export PIPX_BIN_DIR=/usr/local/bin
 # 🇫🇷 Stocke les environnements Python isolés de pipx dans /opt/pipx.
 # 🇵🇹 Guarda os ambientes Python isolados do pipx em /opt/pipx.
 export PIPX_HOME=/opt/pipx
-pipx install gns3-server
-pipx install gns3-gui[qt5]
+# 🇫🇷 Évite de réinstaller GNS3 lorsque le provisionnement est relancé.
+# 🇵🇹 Evita reinstalar o GNS3 quando a preparação da VM é executada novamente.
+if ! pipx list --short | grep -q '^gns3-server '; then
+  pipx install gns3-server
+fi
+if ! pipx list --short | grep -q '^gns3-gui '; then
+  pipx install gns3-gui
+fi
+# 🇫🇷 Ajoute Qt et les modules du serveur à l'environnement Python isolé de l'interface GNS3.
+# 🇵🇹 Adiciona o Qt e os módulos do servidor ao ambiente Python isolado da interface GNS3.
+pipx inject gns3-gui gns3-server PyQt6
 
 # 🇫🇷 Écrit le fichier qui ajoute GNS3 au menu des applications du bureau.
 # 🇵🇹 Escreve o ficheiro que adiciona o GNS3 ao menu de aplicações do ambiente gráfico.
