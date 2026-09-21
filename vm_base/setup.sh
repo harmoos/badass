@@ -42,8 +42,8 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor --batch 
 chmod a+r /etc/apt/keyrings/docker.gpg
 
 # 🇫🇷 Ajoute le dépôt Docker pour l'architecture détectée par dpkg et la version détectée par lsb_release.
-# 🇧🇷 Adiciona o repositório Docker para a arquitetura detetada pelo dpkg e a versão detetada pelo lsb_release.
 # 🇫🇷 « signed-by » limite ce dépôt à la clé de signature Docker.
+# 🇧🇷 Adiciona o repositório Docker para a arquitetura detetada pelo dpkg e a versão detetada pelo lsb_release.
 # 🇧🇷 « signed-by » restringe este repositório à chave de assinatura do Docker.
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
