@@ -1,11 +1,5 @@
-# 🇫🇷 Utilise la version 2 de l'interface de configuration de Vagrant pour définir la VM.
-# 🇵🇹 Usa a versão 2 da interface de configuração do Vagrant para definir a VM.
 Vagrant.configure("2") do |config|
-  # 🇫🇷 Prend une image Debian 13 pour VirtualBox comme point de départ de la VM.
-  # 🇵🇹 Usa uma imagem Debian 13 para VirtualBox como ponto de partida da VM.
   config.vm.box = "cloud-image/debian-13-vbox-amd64"
-  # 🇫🇷 Définit le nom d'hôte visible depuis le système Debian invité.
-  # 🇵🇹 Define o nome do anfitrião visível a partir do sistema Debian convidado.
   config.vm.hostname = "badass"
 
   # 🇫🇷 Partage le dossier parent (la racine du projet) avec la VM dans /vagrant.
@@ -16,21 +10,11 @@ Vagrant.configure("2") do |config|
   # 🇵🇹 Redireciona a porta RDP 3389 da VM para a mesma porta no computador anfitrião.
   config.vm.network "forwarded_port", guest: 3389, host: 3389
 
-  # 🇫🇷 Applique les réglages suivants uniquement au fournisseur VirtualBox.
-  # 🇵🇹 Aplica as definições seguintes apenas ao fornecedor VirtualBox.
   config.vm.provider "virtualbox" do |vb|
-    # 🇫🇷 Donne ce nom à la machine dans l'interface de VirtualBox.
-    # 🇵🇹 Dá este nome à máquina na interface do VirtualBox.
     vb.name = "badass-host"
-    # 🇫🇷 Affiche la fenêtre de la VM au démarrage au lieu de la lancer sans interface.
-    # 🇵🇹 Mostra a janela da VM ao arrancar, em vez de a iniciar sem interface.
     vb.gui = true
 
-    # 🇫🇷 Attribue 8 192 Mio de mémoire vive à la VM.
-    # 🇵🇹 Atribui 8 192 MiB de memória RAM à VM.
     vb.memory = 8192
-    # 🇫🇷 Attribue quatre processeurs virtuels à la VM.
-    # 🇵🇹 Atribui quatro processadores virtuais à VM.
     vb.cpus = 4
 
     # 🇫🇷 Active la virtualisation matérielle imbriquée pour les logiciels lancés dans la VM.
@@ -39,16 +23,10 @@ Vagrant.configure("2") do |config|
     # 🇫🇷 Active l'IO APIC, nécessaire notamment à la gestion de plusieurs processeurs virtuels.
     # 🇵🇹 Ativa o IO APIC, necessário, nomeadamente, para gerir vários processadores virtuais.
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
-    # 🇫🇷 Réserve 128 Mio de mémoire vidéo virtuelle pour l'affichage de la VM.
-    # 🇵🇹 Reserva 128 MiB de memória de vídeo virtual para o ecrã da VM.
     vb.customize ["modifyvm", :id, "--vram", "128"]
-  # 🇫🇷 Termine le bloc des réglages propres à VirtualBox.
-  # 🇵🇹 Termina o bloco das definições específicas do VirtualBox.
   end
 
   # 🇫🇷 Exécute setup.sh dans la VM pour installer et préparer les outils du projet.
   # 🇵🇹 Executa setup.sh na VM para instalar e preparar as ferramentas do projeto.
   config.vm.provision "shell", path: "setup.sh"
-# 🇫🇷 Termine la configuration de cette VM Vagrant.
-# 🇵🇹 Termina a configuração desta VM Vagrant.
 end
