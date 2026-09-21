@@ -1,0 +1,22 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "cloud-image/debian-13-vbox-amd64"
+  config.vm.hostname = "badass"
+
+  config.vm.synced_folder "..", "/vagrant"
+
+  config.vm.network "forwarded_port", guest: 3389, host: 3389
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "badass-host"
+    vb.gui = true
+
+    vb.memory = 8192
+    vb.cpus = 4
+
+    vb.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    vb.customize ["modifyvm", :id, "--vram", "128"]
+  end
+
+  config.vm.provision "shell", path: "setup.sh"
+end
