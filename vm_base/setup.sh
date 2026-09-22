@@ -19,7 +19,19 @@ apt-get update -y
 # 🇧🇷 Atualiza os pacotes, aceita novas dependências e dá prioridade às configurações já existentes.
 apt-get --with-new-pkgs upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 
-apt-get install -y xfce4 xfce4-goodies lightdm lightdm-gtk-greeter xrdp dbus-x11 x11-xserver-utils telnet curl git
+apt-get install -y xfce4 xfce4-goodies lightdm lightdm-gtk-greeter xrdp dbus-x11 x11-xserver-utils telnet curl git zsh busybox-static
+
+# 🇫🇷 Installe Oh My Zsh pour vagrant sans lancer d'installateur interactif.
+# 🇧🇷 Instala Oh My Zsh para vagrant sem executar um instalador interativo.
+if [ ! -d /home/vagrant/.oh-my-zsh ]; then
+  git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /home/vagrant/.oh-my-zsh
+  chown -R vagrant:vagrant /home/vagrant/.oh-my-zsh
+fi
+if [ ! -e /home/vagrant/.zshrc ]; then
+  cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
+  chown vagrant:vagrant /home/vagrant/.zshrc
+fi
+usermod -s /usr/bin/zsh vagrant
 systemctl enable lightdm
 systemctl enable xrdp
 # 🇫🇷 Donne à XRDP accès au certificat TLS ; ignore l'erreur si l'ajout échoue.
