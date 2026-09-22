@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--vram", "128"]
   end
 
-  # 🇫🇷 Exécute setup.sh dans la VM pour installer et préparer les outils du projet.
-  # 🇧🇷 Executa setup.sh na VM para instalar e preparar as ferramentas do projeto.
+  # 🇫🇷 Exécute setup.sh dans la VM, y compris l'installation de Zsh et Oh My Zsh.
+  # 🇧🇷 Executa setup.sh na VM, incluindo a instalação do Zsh e Oh My Zsh.
   config.vm.provision "shell", path: "setup.sh"
 end
