@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+apt-get update -y
+apt-get install -y debconf-utils
 # 🇫🇷 Empêche les outils d'installation Debian d'ouvrir des questions interactives.
 # 🇧🇷 Impede que as ferramentas de instalação do Debian façam perguntas interativas.
 export DEBIAN_FRONTEND=noninteractive
