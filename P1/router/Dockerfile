@@ -6,7 +6,8 @@ RUN apk update && apk add --no-cache \
     bridge-utils \
     tcpdump
 
-RUN sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons && \
+RUN sed -i 's/zebra=no/zebra=yes/' /etc/frr/daemons && \
+    sed -i 's/bgpd=no/bgpd=yes/' /etc/frr/daemons && \
     sed -i 's/ospfd=no/ospfd=yes/' /etc/frr/daemons && \
     sed -i 's/isisd=no/isisd=yes/' /etc/frr/daemons
 
