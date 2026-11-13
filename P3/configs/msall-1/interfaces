@@ -1,0 +1,18 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 10.0.12.1
+    netmask 255.255.255.252
+    post-up /sbin/ip addr replace 1.1.1.1/32 dev lo
+
+auto eth1
+iface eth1 inet static
+    address 10.0.13.1
+    netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+    address 10.0.14.1
+    netmask 255.255.255.252

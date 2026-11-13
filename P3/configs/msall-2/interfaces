@@ -1,0 +1,18 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 10.0.12.2
+    netmask 255.255.255.252
+    post-up /sbin/ip addr replace 1.1.1.2/32 dev lo
+
+auto eth1
+iface eth1 inet manual
+    post-up /sbin/ip link set eth1 up
+    post-up /sbin/ip link add br0 type bridge
+    post-up /sbin/ip link set br0 up
+    post-up /sbin/ip link add vxlan10 type vxlan id 10 local 1.1.1.2 dstport 4789 nolearning
+    post-up /sbin/ip link set vxlan10 up
+    post-up /sbin/ip link set eth1 master br0
+    post-up /sbin/ip link set vxlan10 master br0

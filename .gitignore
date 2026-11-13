@@ -40,3 +40,11 @@ VirtualBox VMs/
 !P2/*
 !P3/*P2/badass-p2-final.zip
 P2/badass-p2-final.zip
+
+# Local recovery / large files
+badass-projects-backup.tar.gz
+P3-recovery-backup/
+vm_base/debian-13-badass.box
+
+# Local SSH key used to recover the Vagrant VM
+mykey.pub

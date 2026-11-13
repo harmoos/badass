@@ -1,0 +1,11 @@
+# Image légère pour les hosts GNS3
+FROM alpine:3.16
+
+# BusyBox est déjà fourni par Alpine.
+# iproute2 fournit notamment la commande "ip".
+RUN apk add --no-cache iproute2
+
+# Aucune adresse IP n'est configurée ici.
+# Les adresses seront ajoutées uniquement dans les topologies P2/P3.
+
+CMD ["/bin/sh"]

@@ -1,0 +1,19 @@
+# Router image used throughout BADASS
+FROM alpine:3.16
+
+# BusyBox is provided by Alpine.
+# FRRouting provides Zebra, BGP, OSPF and IS-IS.
+RUN apk add --no-cache iproute2 frr frr-openrc
+
+# Enable the routing daemons required by the subject
+COPY daemons.conf /etc/frr/daemons
+
+# Script used to start FRRouting when the container starts
+COPY start-router.sh /usr/local/bin/start-router.sh
+RUN chmod +x /usr/local/bin/start-router.sh
+RUN touch /etc/frr/vtysh.conf \&\& chown frr:frr /etc/frr/vtysh.conf
+
+# No IP address is configured by default.
+# P2/P3 will configure addresses according to their topology.
+
+CMD ["/usr/local/bin/start-router.sh"]
